@@ -18,7 +18,15 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size)
     test::stream stream{ioc, {reinterpret_cast<const char*>(data), size}};
     stream.close_remote();
 
-    http::request_parser<http::dynamic_body> parser;
+    http::chunk_extensions ce;
+    http::response_parser<http::dynamic_body> parser;
+
+    auto chunk_header_cb = [&ce](std::uint64_t, string_view extensions, error_code& ev)
+    {
+        ce.parse(extensions, ev);
+    };
+
+    parser.on_chunk_header(chunk_header_cb);
     http::read(stream, buffer, parser, ec);
 
     return 0;
