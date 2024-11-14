@@ -110,6 +110,12 @@ include(ObjectTargetHelpers)
 add_subdirectory(core)
 add_subdirectory(endpoints)
 
+option(IRODS_HTTP_BUILD_FUZZERS "Build fuzzers" OFF)
+
+if(IRODS_HTTP_BUILD_FUZZERS)
+    add_subdirectory(test/fuzz)
+endif()
+
 add_executable(${IRODS_HTTP_API_BINARY_NAME})
 target_link_objects(
   ${IRODS_HTTP_API_BINARY_NAME}
