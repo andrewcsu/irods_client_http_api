@@ -1,5 +1,5 @@
-GET /irods-http-api/0.4.0/ HTTP/1.1
+GET /irods-http-api/0.4.0/collections?path=/tempZone/home/rods HTTP/1.1
 Accept: application/json
 Authorization: Bearer 30ac8f4e-ced5-4fec-9144-3f374eb7fd5f
-Host: localhost
+Host: localhost:9000
 Connection: keep-alive
